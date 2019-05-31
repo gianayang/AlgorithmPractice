@@ -1,0 +1,3 @@
+﻿  test.cpp
+C:\Users\giana\Documents\CS-OOP\test_file\test_file\test.cpp(85): warning C4018: '>=': signed/unsigned mismatch
+  test_file.vcxproj -> C:\Users\giana\Documents\CS-OOP\test_file\Debug\test_file.exe
