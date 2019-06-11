@@ -1,14 +1,14 @@
 public class Solution {
 	public ListNode reorder(ListNode head) {
-	    // Write your solution here
-      if(head==null||head.next==null){
-        return head;
-      }
-	    ListNode mid=midNode(head);
-	    ListNode one=head;
-      ListNode two=mid.next;
-      mid.next=null;
-	    return merge(one,reverse(two));   
+		// Write your solution here
+		if(head==null||head.next==null){
+		return head;
+	}
+	ListNode mid=midNode(head);
+	ListNode one=head;
+	ListNode two=mid.next;
+	mid.next=null;
+	return merge(one,reverse(two));   
 	}
 	
 	public ListNode midNode(ListNode head) {
@@ -20,7 +20,7 @@ public class Solution {
 		}
 		return slow;
 	}
-	
+
 	private ListNode reverse(ListNode head) {
 		ListNode prev=null;
 		while(head!=null) {
@@ -31,7 +31,7 @@ public class Solution {
 		}
 		return prev;
 	}
-	
+
 	private ListNode merge(ListNode first,ListNode second) {
 		ListNode dummyHead=new ListNode(0);
 		ListNode cur=dummyHead;
@@ -54,21 +54,21 @@ public class Solution {
 	
 	//Check if the linked list is a loop
 	boolean hasCycle(ListNode head) {
-      if(head==null||head.next==null){
-          return false;
-      }
-      ListNode slow=head;
-      ListNode fast=head;
-      while(fast.next!=null && fast.next.next!=null){
-          slow=slow.next;
-          fast=fast.next.next;
-          if(slow==fast){
-              return true;
-          }
-      }
-      return false;
+		if(head==null||head.next==null){
+  			return false;
+		}
+		ListNode slow=head;
+		ListNode fast=head;
+		while(fast.next!=null && fast.next.next!=null){
+		  slow=slow.next;
+		  fast=fast.next.next;
+		  if(slow==fast){
+		      return true;
+		  }
+		}
+		return false;
 	}
-	
+
 	
 	public ListNode partition(ListNode head, int target) {
 	    if(head==null)return null;
@@ -141,18 +141,18 @@ public class Solution {
   }
   
   //mergeSort LinkedList
-  public ListNode mergeSort(ListNode head) {
-    // Write your solution here
-        if (head == null || head.next == null) {
-      return head;
-    }
-    ListNode mid = midNode(head);
-    ListNode rightHalf = mid.next;
-    mid.next = null;
-    ListNode left = mergeSort(head);
-    ListNode right = mergeSort(rightHalf);
-    return mergeTwoLinkedList(left, right);
-  }
+	public ListNode mergeSort(ListNode head) {
+		// Write your solution here
+		if (head == null || head.next == null) {
+			return head;
+		}
+		ListNode mid = midNode(head);
+		ListNode rightHalf = mid.next;
+		mid.next = null;
+		ListNode left = mergeSort(head);
+		ListNode right = mergeSort(rightHalf);
+		return mergeTwoLinkedList(left, right);
+	}
   private ListNode mergeTwoLinkedList(ListNode one,ListNode two){
       ListNode dummy=new ListNode(0);
       ListNode curr=dummy;
