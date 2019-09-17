@@ -1,0 +1,24 @@
+public int editDistance(String one, String two) {
+    // Write your solution here
+    if(one.length()==0)return two.length();
+    if(two.length()==0)return one.length();
+    int[][] M=new int[one.length()+1][two.length()+1];
+    M[0][0]=0;
+    for(int i=0;i<=one.length();i++){
+      for(int j=0;j<=two.length();j++){
+        if(i==0)M[i][j]=j;
+        else if(j==0)M[i][j]=i;
+        else if(one.charAt(i-1)==two.charAt(j-1)){
+          M[i][j]=M[i-1][j-1];
+        }
+        //case1,2,3
+        else{
+          int insert=M[i][j-1];
+          int replace=M[i-1][j-1];
+          int delete=M[i-1][j];
+          M[i][j]=Math.min(insert,Math.min(replace,delete))+1;
+        }
+      }
+    }
+    return M[one.length()][two.length()];
+  }
