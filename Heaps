@@ -1,0 +1,65 @@
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.concurrent.PriorityBlockingQueue;
+
+//How to initialize a minHeap
+PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>();
+minHeap.offer(2);//O(logn)
+minHeap.peek();//O(1)
+minHeap.poll();//O(logn)
+minHeap.remove();//O(logn)
+minHeap.remove(2);//O(n+logn)=O(n), find it first
+/*
+how to compare the elements and determine which one is smaller/larger:
+    Integer --> 
+    class Integer implements Comparable<Integer>
+    The return value of compareTo(another) method determines the order of this and another:
+            0-same priority
+            -1-higher priority
+            1-less priority
+*/
+class Cell implements Comparable<Cell>{
+    public int row;
+    public int col;
+    public Cell(int row,int col,int value){
+        this.row=row;
+        this.col=col;
+        this.value=value;
+    }
+    @Override
+    public int compareTo(Integer another){
+        if(this.value==another.value){
+            return 0;
+        }
+        return this.value<another.value?-1:1;
+    }
+}
+
+class MyComparator implements Comparator<Cell>{
+    @Override
+    public int compare(Cell c1, Cell c2){
+        if(c1.value==c2.value){
+            return 0;
+        }
+        return c1.value<c2.value?-1:1;
+    }
+}
+
+/*use it when the class we are using already implemented Comparable interface, but we need 
+another way of ordering.
+Or, when we need to compare other element in the class
+*/ 
+class ReverseComparator implements Comparator<Integer>{
+    @Override
+    public int compare(Integer a,Integer b){
+        if(a==b){
+            return 0;
+        }
+        return a<b ?1:-1;
+    }
+}
+
+//If only want to reverse the natural order, just call reverseOrder
+PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>(16,new ReverseComparator());
+PriorityQueue<Integer> maxHeap =new PriorityQueue<Integer>(16,Collections.reverseOrder());
+
