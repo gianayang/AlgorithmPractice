@@ -62,4 +62,28 @@ class ReverseComparator implements Comparator<Integer>{
 //If only want to reverse the natural order, just call reverseOrder
 PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>(16,new ReverseComparator());
 PriorityQueue<Integer> maxHeap =new PriorityQueue<Integer>(16,Collections.reverseOrder());
+//Heapify()-O(n) runtime. Disadvantage: can only heapify in natural order
+ArrayList<Cell> list=new ArrayList<Cell>();
+PriorityQueue<Cell> heap=new PriorityQueue<Cell>(list);
 
+
+//Smallest K
+public int[] kSmallest(int[] array, int k) {
+    if(array.length==0||k==0){
+        return new int[0];
+    }
+    PriorityQueue<Integer> maxHeap=new PriorityQueue<Integer>(k,Collections.reverseOrder());
+    int[]res=new int[k];
+    for(int i=0;i<array.length;i++){
+        if(i<k){
+        maxHeap.offer(array[i]);
+        }else if(array[i]<maxHeap.peek()){
+            maxHeap.poll();
+            maxHeap.offer(array[i]);
+        }
+    }
+    for(int i=k-1;i>=0;i--){
+        res[i]=maxHeap.poll();
+    }
+    return res;
+}
