@@ -1,0 +1,28 @@
+public List<String> permutations(String input) {
+  char[]inp=input.toCharArray();
+  List<String>res=new ArrayList<String>();
+  if(input==null){
+    return res;
+  }
+  permutationsHelper(inp,0,res);
+  return res;
+}
+
+public void permutationsHelper(char[] input,int index,List<String>result){
+  if(index==input.length){
+    result.add(new String(input));
+    return;
+  }
+
+  for(int i=index;i<input.length;i++){
+    swap(input, index,i);
+    permutationsHelper(input,index+1,result);
+    swap(input,index,i);
+  }
+}
+
+private void swap(char[]array,int left, int right){
+  char tmp=array[left];
+  array[left]=array[right];
+  array[right]=tmp;
+}
