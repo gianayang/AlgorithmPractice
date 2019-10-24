@@ -18,6 +18,22 @@ public String reverseWords(String input) {
     return new String(array);
   }
   
+  
+  //shift the whole string by n digits: "abcdef,2" -> "efabcd"
+  public String rightShift(String input, int n) {
+    // Write your solution here
+    if(n == 0 || input == ""){
+      return input;
+    }
+    int shift = n % input.length();
+    char[]array = input.toCharArray();
+    reverse(array,0,array.length-1);
+    reverse(array,0,shift-1);
+    reverse(array,shift,array.length-1);
+    return new String(array);
+  }
+  
+  
   private void reverse (char[]array,int i, int j){
     while(i < j){
       swap(i,j,array);
