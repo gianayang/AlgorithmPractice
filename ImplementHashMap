@@ -1,0 +1,189 @@
+import java.util.Arrays;
+
+//define the class for each entry
+class Node<K,V>{
+    final K key;
+    V value;
+    Node<K,V> next;
+    Node(K key, V value){
+        this.key = key;
+        this.value = value;
+    }
+
+    public K getKey(){
+        return key;
+    }
+
+    public V getValue(){
+        return value;
+    }
+
+    public void setValue(V value){
+        this.value = value;
+    }
+}
+
+//maintain an array of entries
+Node<K,V> [] array;
+// hash key to hash code
+private int hash(K key){
+    //return the hashcode of the key
+    if(key == null){
+        return 0;
+    }
+    int hashNum = key.hashCode();
+}
+//has code to entry index in the array
+//from the corresponding singly linked list, 
+//iterate all of the nodes to find if the same key exists
+
+//from the hashcode, mapped to the entry index
+int getIndex(int hasNum){
+    //return the corresponding index of array
+    return hasNum % array.length;
+}
+
+//When iterate the corresponding entry for the given key, which is actually a singly linked list.
+//we need to compare each of the entry in the list, if the key is the same as the key we want
+Entry<K,V> curr = array[index];
+/*while(cur != null){
+}*/
+public class MyHashMap<K,V> {
+    public staitc class Node<K,V>{
+        final K key;
+        V value;
+        Node<K,V> next;
+        Node(K key, V value){
+            this.key = key;
+            this.value = value;
+        }
+
+        public K getKey() {
+            return key;
+        }
+        public V getValue(){
+            return value;
+        }
+        public void setValue(V value){
+            this.value = value;
+        }
+    }
+
+    public static final int DEFAULT_CAPACITY = 16;
+    public static final float DEFAULT_LOAD_FACTOR = 0.75f;
+
+    private Node<K,V>[] array;
+    private int size;
+    private float loadFactor;
+
+    public MyHashMap() {
+        this(DEFAULT_CAPACITY, DEFAULT_LOAD_FACTOR);
+    }
+
+    public MyHashMapy(int cap, float loadFactor) {
+        if(cap <= 0){
+            throw new IllegalArgumentException("cap can not be less than zero");
+        }
+        this.array = (Node<K,V>[]) (new Node[cap]);
+        this.size = 0;
+        this.loadFactor = loadFactor;
+    }
+
+    public int size() {
+        return size;
+    }
+    public boolean isEmpty() {
+        return size == 0;
+    }
+    public void clear(){
+        Arrays.fill(this.array, null);
+    }
+
+    //non-negative
+    private int hash(K key) {
+        if(key == null){
+            return 0;
+        }
+        reutrn key.hashCode() &0X7FFFFFFF;
+    }
+
+    private int getIndex(K key) {
+        return hash(key) % array.length; 
+    }
+
+    private boolean euqalsValue(V v1, V v2) {
+        return v1 == v2 || v1 != null && v1.equals(v2);
+    }
+
+    //O(n), traverse the whole array, and traverse each of the linked list in the array.
+    public boolean containsValue(V value) {
+        if((isEmpty())) {
+            return false;
+        }
+        for (Nofe<K,V>node : array){
+            while (node != null){
+                if (equalsValue(node.value, value)){
+                    return true;
+                }
+                node = node.next;
+            }
+        }
+        return false;
+    }
+
+    rivate boolean euqalsKey(K k1, K k2) {
+        return k1 == k2 || k1 != null && k1.equals(k2);
+    }
+
+    public boolean containsKey(K key) {
+        int index = getIndex(key);
+        Node<K,V>node = array[index];
+        while (node != null) {
+            if (equalsKey(node.key, key)){
+                return true;
+            }
+            node = node.next;
+        }
+        return false;
+    }
+
+    public V get(K key){
+        int index = getIndex(key);
+        Node<K,V>node = array[index];
+        while (node != null) {
+            if (equalsKey(node.key, key)){
+                return node.value;
+            }
+            node = node.next;
+        }
+        return null;
+    }
+
+    public V put(K key, V value) {
+        int index = getIndex(key);
+        Node<K,V> head = array[index];
+        Node<K,V> node = head;
+        while (node != null) {
+            if(equals(node.key,key)){
+                V result = node.value;
+                node.value = value;
+                return result;
+            }
+            node = node.next;
+        }
+        Node<K,V> newNode = new Node(key,value);
+        newNode.next = head; 
+        array[index] = newNode;
+        size++;
+        if(needRehashing()){
+            rehashing();
+        }
+        return null;
+    }
+
+    private boolean needRehashing() {
+        float ratio = (size + 0.0f) / array.length;
+        return ratio >= loadFactor;
+    }
+
+}
