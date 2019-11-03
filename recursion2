@@ -1,0 +1,21 @@
+//a to the power of b, a and b can be negative
+public int power(int a, int b) {
+  if (a == 0){
+    if (b <=  0){
+      throw new IllegalArgumentException();
+    }
+    return 0;
+
+  }
+  if (b < 0){
+    return (int)(1 / (double)powerHelper(a,-b));
+  }else{
+    return powerHelper(a,b);
+  }
+}
+public int powerHelper(int a, int b) {
+  if(b==0)return 1;
+  int halfResult = powerHelper(a,b/2);
+  if(b%2==1) return a*halfResult*halfResult;
+  else return halfResult*halfResult;
+}
