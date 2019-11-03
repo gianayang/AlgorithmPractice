@@ -32,9 +32,20 @@ public ListNode reverseInPairs(ListNode head) {
    return next;
 }
 
+/*
+Word “book” can be abbreviated to 4, b3, b2k, etc. Given a string and an abbreviation, return if the string matches the abbreviation.
 
+Assumptions:
+
+The original string only contains alphabetic characters.
+Both input and pattern are not null.
+Pattern would not contain invalid information like "a0a","0".
+Examples:
+
+pattern “s11d” matches input “sophisticated” since “11” matches eleven chars “ophisticate”.
+*/
 public boolean match(String input, String pattern) {
-   if(input.length() == 0 && pattern.length()== 0){
+  if(input.length() == 0 && pattern.length()== 0){
     return true;
   }else if(input.length() == 0 || pattern.length()== 0){
     return false;
@@ -45,6 +56,12 @@ public boolean match(String input, String pattern) {
 }
 private boolean helper(String input,String pattern, int a, int b){
   // Write your solution here
+  if(a == input.length() && b == pattern.length()){
+    return true;
+  }
+  if(a >= input.length() || b >= pattern.length()){
+    return false;
+  }
   if(Character.isLetter(pattern.charAt(b))){
     if(input.charAt(a) == pattern.charAt(b)){
       return helper(input,pattern,a+1,b+1);
@@ -52,13 +69,16 @@ private boolean helper(String input,String pattern, int a, int b){
       return false;
     }
   }else{
-    int i = 0;
+    int i = b;
     int num = 0;
     while(i < pattern.length() && Character.isDigit(pattern.charAt(i))){
       num = num*10 + (pattern.charAt(i) - '0');
-      i = i+1;
-
+      i++;
     }
-    return helper(input,pattern,a + num , b + i);
+    if(a + num>input.length()){
+      return false;
+    }else{
+    return helper(input,pattern,a + num , i);
+    }
   }
 }
