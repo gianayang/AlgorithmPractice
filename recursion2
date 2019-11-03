@@ -19,3 +19,46 @@ public int powerHelper(int a, int b) {
   if(b%2==1) return a*halfResult*halfResult;
   else return halfResult*halfResult;
 }
+
+
+//reverse Linked List in pairs
+public ListNode reverseInPairs(ListNode head) {
+   if(head == null || head.next == null){
+     return head;
+   }
+   ListNode next = head.next;
+   head.next = reverseInPairs(next.next);
+   next.next = head;
+   return next;
+}
+
+
+public boolean match(String input, String pattern) {
+   if(input.length() == 0 && pattern.length()== 0){
+    return true;
+  }else if(input.length() == 0 || pattern.length()== 0){
+    return false;
+  }
+  int i = 0;
+  int p = 0;
+  return helper(input,pattern,i,p);
+}
+private boolean helper(String input,String pattern, int a, int b){
+  // Write your solution here
+  if(Character.isLetter(pattern.charAt(b))){
+    if(input.charAt(a) == pattern.charAt(b)){
+      return helper(input,pattern,a+1,b+1);
+    }else{
+      return false;
+    }
+  }else{
+    int i = 0;
+    int num = 0;
+    while(i < pattern.length() && Character.isDigit(pattern.charAt(i))){
+      num = num*10 + (pattern.charAt(i) - '0');
+      i = i+1;
+
+    }
+    return helper(input,pattern,a + num , b + i);
+  }
+}
